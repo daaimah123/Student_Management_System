@@ -357,10 +357,10 @@ try {
     showSuccessMessage();
 } catch (IllegalArgumentException e) {
     // Handle validation errors with specific guidance
-    showErrorDialog("Input Error: " + e.getMessage() + "\n\nResolution: Please check your input fields.");
+    showErrorDialog("Input Error: " + e.getMessage() + "\nResolution: Please check your input fields.");
 } catch (Exception e) {
     // Handle unexpected errors with technical details
-    showErrorDialog("System Error: " + e.getMessage() + "\n\nResolution: Please contact technical support.");
+    showErrorDialog("System Error: " + e.getMessage() + "\nResolution: Please contact technical support.");
     // Log for troubleshooting
     System.err.println("Error: " + e.getMessage());
     e.printStackTrace();
