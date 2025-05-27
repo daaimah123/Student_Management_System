@@ -1,8 +1,6 @@
 # 👩🏽‍🎓Student Management System👩🏽‍🎓
 The Student Management System is a desktop application developed using Java Swing that provides administrators with a user-friendly interface to manage student records, handle course enrollments, and assign grades. The application features a tabbed interface with four main modules: Student Management, Course Management, Course Enrollment, and Grade Management.
 
-***⚠️⚠️⚠️ Note that in the interest of time and not making this application have an overly convoluted design, I have used emoji icons rather than additional import statements or framework requirements as well as avoided additional image folder and files.***
-
 ## Table of Contents
 - [Features](#features)
 - [System Requirements](#system-requirements)
