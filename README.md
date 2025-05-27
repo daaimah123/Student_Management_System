@@ -425,7 +425,7 @@ try {
   2. Resize the application window to be larger
   3. Adjust system display scaling settings
 
-## Error Message Reference
+##### Error Message Reference
 
 | Error Message                                      | Possible Cause                   | Resolution                                    |
 | -------------------------------------------------- | -------------------------------- | --------------------------------------------- |
