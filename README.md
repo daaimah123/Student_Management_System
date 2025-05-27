@@ -291,50 +291,48 @@ searchField.getDocument().addDocumentListener(new DocumentListener() {
 ## Design Choices
 
 #### GUI Framework Selection
-**Choice**: Java Swing
-**Rationale**:
+- **Choice**: Java Swing
+- **Rationale**:
     - Native Java support without external dependencies
     - Mature and stable framework
     - Extensive component library
     - Cross-platform compatibility
 
 #### Layout Management
-**Choice**: Combination of BorderLayout, GridBagLayout, and FlowLayout
-**Rationale**:
+- **Choice**: Combination of BorderLayout, GridBagLayout, and FlowLayout
+- **Rationale**:
     - BorderLayout for main panel organization
     - GridBagLayout for precise form control
     - FlowLayout for button arrangements
     - Responsive design that adapts to window resizing
 
 #### Data Management
-**Choice**: In-memory data structures
-**Rationale**:
+- **Choice**: In-memory data structures
+- **Rationale**:
     - Simplifies implementation for academic purposes
     - Fast data access and manipulation
     - No external database dependencies
     - Easy to understand and modify
 
 #### User Interface Design
-**Choice**: Tabbed interface with consistent styling
-**Rationale**:
+- **Choice**: Tabbed interface with consistent styling
+- **Rationale**:
     - Logical separation of functionality
     - Familiar interface pattern
     - Easy navigation between modules
     - Consistent user experience
 
 #### Validation Strategy
-
-**Choice**: Client-side validation with immediate feedback
-**Rationale**:
+- **Choice**: Client-side validation with immediate feedback
+- **Rationale**:
     - Immediate user feedback
     - Prevents invalid data entry
     - Reduces system errors
     - Better user experience
 
 #### Visual Enhancements
-
-**Choice**: Custom renderers and color coding
-**Rationale**:
+- **Choice**: Custom renderers and color coding
+- **Rationale**:
     - Improved visual hierarchy
     - Faster information processing
     - Better user engagement
