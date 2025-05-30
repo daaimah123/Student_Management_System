@@ -1,627 +1,334 @@
-# 👩🏽‍🎓Student Management System👩🏽‍🎓
-The Student Management System is a desktop application developed using Java Swing that provides administrators with a user-friendly interface (GUI) to manage student records, handle course enrollments, and assign grades. The application features a tabbed interface with four main modules: Student Management, Course Management, Course Enrollment, and Grade Management.
+# 👩🏽‍💻 Employee Management System 👩🏽‍💻
+A comprehensive Java program demonstrating the usage of Function interface and Streams for efficient data processing and manipulation of employee datasets read from an external CSV file.
 
-![student_management_system](https://github.com/user-attachments/assets/4039fd12-8ee9-476a-992f-26f59df171dc)
+This program also showcases advanced Java 8+ features including:
+- Reading data from an external CSV file.
+- Function interface implementation for data transformation.
+- Stream operations for data processing with dynamic filtering.
+- Statistical analysis using stream aggregation functions.
+- Performance optimization through lazy evaluation and short-circuiting.
 
 ## Table of Contents
-- [Features](#features)
-- [System Requirements](#system-requirements)
-- [Installation and Setup](#installation-and-setup)
-- [User Guide](#user-guide)
-- [Technical Documentation](#technical-documentation)
-- [Design Choices](#design-choices)
-- [Error Handling](#error-handling)
-- [Troubleshooting Guide](#troubleshooting-guide)
-- [Developer Guide](#developer-guide)
-- [Refactoring for Production: Beyond the Assignment](#refactoring-for-production-beyond-the-assignment)
+-   [Features](#features)
+    -   [Core Requirements](#core-requirements)
+    -   [Advanced Features](#advanced-features)
+-   [Function Interface in Java](#function-interface-in-java)
+    -   [Purpose](#purpose)
+    -   [Characteristics](#characteristics)
+    -   [Usage Examples](#usage-examples)
+-   [Stream Operations in Java](#stream-operations-in-java)
+    -   [Purpose](#purpose-1)
+    -   [Characteristics](#characteristics-1)
+    -   [Usage](#usage)
+    -   [Efficiency Features](#efficiency-features)
+-   [Compilation and Execution](#compilation-and-execution)
+-   [Sample Output](#sample-output)
+-   [Architecture Improvement Recommendations](#architecture-improvement-recommendations)
+    -   [Current Architecture Analysis](#current-architecture-analysis)
+    -   [Recommended File Structure (Modular)](#recommended-file-structure-modular)
+    -   [Step-by-Step Refactoring](#step-by-step-refactoring)
+    -   [Benefits of This Modular Architecture](#benefits-of-this-modular-architecture)
 
 ## Features
 
-#### Student Management
-- **Add New Students**: Create new student records with ID, name, email, and major
-- **Update Student Information**: Modify existing student details
-- **View Student Details**: Display all students in a sortable table
-- **Delete Students**: Remove student records with confirmation
-- **Search Functionality**: Filter students by ID, name, email, or major
-- **Input Validation**: Comprehensive validation for all fields
-- **Duplicate Prevention**: Prevents duplicate student IDs
+#### Core Requirements
+1.  **Dataset Management**: Reads employee data from an `employees.csv` file and stores it in a `List<Employee>`.
+2.  **Function Interface Usage**: Implements a `Function` to transform employee objects into concatenated name and department strings, demonstrating its purpose, characteristics, and usage.
+3.  **Stream Processing**: Utilizes streams to generate a new collection of transformed strings and to process the dataset for various operations.
+4.  **Statistical Analysis**: Calculates the average salary of all employees using stream's built-in functions (`mapToDouble` and `average`).
+5.  **Dynamic Filtering Operations**: Incorporates a filter function (`Predicate`) that dynamically includes only employees whose age is above a configurable threshold.
 
-#### Course Management
-- **Add New Courses**: Create course records with ID, name, credits, and enrollment limits
-- **Update Course Information**: Modify existing course details
-- **View Course Details**: Display all courses in a sortable table
-- **Delete Courses**: Remove course records with confirmation
-- **Set Prerequisites**: Define prerequisite courses required for enrollment
-- **Enrollment Limits**: Set maximum number of students per course
-- **Available Seats**: Track and display available seats for each course
+#### Advanced Features
+- Department-wise average salary analysis using `parallelStream()` for enhanced performance.
+- Comprehensive salary statistics (min, max, average, sum, count) using `DoubleSummaryStatistics`.
+- Top performer identification (e.g., top 3 highest paid employees) using stream sorting and limiting.
+- Age distribution analysis by categorizing employees into age groups.
+- Explicit demonstrations of stream efficiency, including lazy evaluation and short-circuiting behavior, with `peek()` for visibility.
 
-#### Course Enrollment
-- **Course Selection**: Dropdown menu for selecting available courses
-- **Student Lists**: Separate lists for available and enrolled students
-- **Bulk Enrollment**: Select and enroll multiple students simultaneously
-- **Unenrollment**: Remove students from courses with confirmation
-- **Prerequisite Checking**: Verify students meet prerequisites before enrollment
-- **Capacity Management**: Prevent enrollment when courses reach capacity
-- **Student Filtering**: Search functionality for both available and enrolled students
+## Function Interface in Java
+The `java.util.function.Function<T, R>` interface is a core functional interface introduced in Java 8.
 
-#### Grade Management
-- **Student Selection**: Dropdown for choosing students
-- **Course Overview**: Table showing all courses a student is enrolled in
-- **Grade Assignment**: Assign grades from A+ to F scale
-- **Grade History**: View current grades for all enrolled courses
-- **GPA Calculation**: Automatic calculation and display of student GPA
-- **Color-Coded Grades**: Visual indicators for different grade levels
-- **Date Tracking**: Record and display when grades were assigned
+#### Purpose
+The `Function` interface represents a function that accepts one argument of type `T` and produces a result of type `R`. It acts as a blueprint for lambda expressions or method references that perform a transformation from one type of object to another. It encapsulates the logic of a single input-single output operation.
 
-## System Requirements
-- **Java Version**: Java 8 or higher
-- **Operating System**: Windows, macOS, or Linux
-- **Memory**: Minimum 512 MB RAM
-- **Display**: Minimum 1024x768 resolution
+#### Characteristics
+-   **Single Abstract Method (SAM)**: It defines one abstract method, `R apply(T t)`, which takes an argument of type `T` and returns a result of type `R`.
+-   **Type Safety**: Provides compile-time type checking, ensuring that the input and output types are correctly handled.
+-   **Composability**: Includes default methods like `andThen(Function after)` and `compose(Function before)` which allow chaining multiple `Function` instances together to form a pipeline of transformations.
+-   **Immutability Focus**: Encourages writing pure functions that do not modify external state or their input arguments, aligning with functional programming principles.
+-   **Stream Integration**: It is widely used as an argument to intermediate stream operations, most notably `map()`, to transform elements within a stream.
 
-## Installation and Setup
-
-#### Prerequisites
-1. Ensure Java Development Kit (JDK) 8 or higher is installed
-2. Verify Java installation by running: `java -version`
-
-#### Compilation and Execution
-1. **Compile the application after downloading the source code**:
-
-   ```
-   javac StudentManagementSystem.java
-   ```
-2. **Run the application**:
-
-   ```bash
-   java StudentManagementSystem
-   ```
-
-#### Alternative IDE Setup
-1. **Eclipse/IntelliJ IDEA**:
-   - Create a new Java project
-   - Copy the source code into a new Java class file
-   - Run the main method in StudentManagementSystem class
-
-## User Guide
-1. Launch the application by running the main class
-2. The application opens with four tabs: Student Management, Course Management, Course Enrollment, and Grade Management
-3. Sample data is automatically loaded for demonstration purposes
-
-### Student Management Tab
-
-##### Adding a New Student
-1. Navigate to the "Student Management" tab
-2. Fill in the required fields:
-   - **Student ID**: Unique identifier (e.g., S001)
-   - **Name**: Full name of the student
-   - **Email**: Valid email address
-   - **Major**: Student's field of study
-3. Click "Add Student" button
-4. Success message confirms the addition
-
-##### Updating Student Information
-1. Select a student from the table by clicking on the row
-2. Student information automatically populates in the form fields
-3. Modify the desired fields
-4. Click "Update Student" button
-5. Confirm the update in the success dialog
-
-##### Viewing Student Details
-- All students are displayed in the main table
-- Click on column headers to sort by that field
-- Use the scroll bar for large datasets
-
-##### Searching for Students
-1. Enter search terms in the search field
-2. Click "Search" button or press Enter
-3. Table updates to show only matching students
-4. Click "Reset" to show all students again
-
-##### Deleting a Student
-1. Select the student from the table
-2. Click "Delete Student" button
-3. Confirm deletion in the dialog box
-4. Student is removed from all related records
-
-### Course Management Tab
-
-##### Adding a New Course
-1. Navigate to the "Course Management" tab
-2. Fill in the required fields:
-   - **Course ID**: Unique identifier (e.g., CS101)
-   - **Course Name**: Name of the course
-   - **Credits**: Number of credits for the course
-   - **Enrollment Limit**: Maximum number of students allowed
-3. Select any prerequisites from the list (optional)
-4. Click "Add Course" button
-5. Success message confirms the addition
-
-##### Updating Course Information
-1. Select a course from the table
-2. Course information automatically populates in the form fields
-3. Modify the desired fields
-4. Click "Update Course" button
-5. Confirm the update in the success dialog
-
-##### Deleting a Course
-1. Select the course from the table
-2. Click "Delete Course" button
-3. Confirm deletion in the dialog box
-4. Course and all related enrollment records are removed
-
-### Course Enrollment Tab
-
-##### Enrolling Students in Courses
-1. Navigate to the "Course Enrollment" tab
-2. Select a course from the dropdown menu
-3. Available students appear in the left list
-4. Select one or more students from the available list
-5. Click "Enroll Selected →" button
-6. Students move to the enrolled list
-
-##### Filtering Students
-1. Use the filter fields above each list to search for specific students
-2. Type in the filter field to dynamically update the list
-3. Clear the filter field to show all students again
-
-##### Unenrolling Students
-1. Select enrolled students from the right list
-2. Click "← Unenroll Selected" button
-3. Confirm the action in the dialog
-4. Students return to the available list
-
-### Grade Management Tab
-
-##### Assigning Grades
-1. Navigate to the "Grade Management" tab
-2. Select a student from the dropdown menu
-3. Student's enrolled courses appear in the table
-4. Select a course from the table
-5. Choose a grade from the grade dropdown (A+ to F)
-6. Click "Assign Grade" button
-7. Grade is updated in the table and GPA recalculated
-
-##### Viewing Student Grades
-- Select any student to view their complete grade report
-- Table shows course details and current grades
-- "Not Assigned" appears for courses without grades
-- GPA is displayed at the top right of the panel
-
-## Technical Documentation
-The Student Management System follows the Model-View-Controller (MVC) architectural pattern:
-- **Model**: Data classes (Student, Course, Grade) and manager classes (StudentManager, CourseManager, GradeManager)
-- **View**: GUI panels (StudentPanel, CourseManagementPanel, CoursePanel, GradePanel)
-- **Controller**: Event handlers and action listeners that process user input
-
-##### Model Classes
-- **Student**: Data model for student information
-- **Course**: Data model for course details with enrollment limits and prerequisites
-- **Grade**: Data model for grade assignments with date tracking
-
-##### Manager Classes
-- **StudentManager**: Handles all student-related operations
-- **CourseManager**: Manages courses, enrollments, and prerequisites
-- **GradeManager**: Handles grade assignments, retrieval, and GPA calculation
-
-##### View Classes
-- **StudentManagementSystem**: Main application frame
-- **StudentPanel**: GUI for student management
-- **CourseManagementPanel**: GUI for course management
-- **CoursePanel**: GUI for course enrollment
-- **GradePanel**: GUI for grade management
-
-### Design Patterns Observed
-
-##### Observer Pattern
-- Tab change listeners update data across panels
-- Table selection listeners populate form fields
-- Document listeners for search/filter functionality
-
-##### Command Pattern
-- Button actions encapsulated in ActionListener implementations
-- Consistent error handling across all operations
-
-##### Data Access Object (DAO) Pattern
-- Manager classes abstract data operations
-- Centralized data management and validation
-
-##### Decorator Pattern
-- Custom cell renderers enhance visual presentation
-- Animated tabbed pane for smooth transitions
-
-### Event Handling
-
-##### Button Events
-
+#### Usage Examples
 ```java
-// Example: Add Student button event handler
-addButton.addActionListener(e -> addStudent());
-```
+// Function that maps an Employee object to a concatenated string of their name and department
+private static final Function<Employee, String> mapEmployeeToNameAndDepartmentString = 
+    employee -> employee.getName() + " - " + employee.getDepartment();
 
-##### Selection Events
+// Function that maps an Employee object to a detailed info string including name, department, and salary
+private static final Function<Employee, String> mapEmployeeToDetailedInfoString = 
+    employee -> String.format("%s - %s (Salary: $%.2f)", 
+                              employee.getName(), 
+                              employee.getDepartment(), 
+                              employee.getSalary());
 
-```java
-// Example: Table selection event handler
-studentTable.getSelectionModel().addListSelectionListener(e -> {
-    if (!e.getValueIsAdjusting()) {
-        int selectedRow = studentTable.getSelectedRow();
-        if (selectedRow >= 0) {
-            populateFields(selectedRow);
-        }
-    }
-});
-```
+// Function that maps an Employee object to their salary as a Double
+private static final Function<Employee, Double> mapEmployeeToSalaryDouble = Employee::getSalary;
 
-##### Combo Box Events
-
-```java
-// Example: Course selection event handler
-courseComboBox.addActionListener(e -> updateStudentLists());
-```
-
-##### Document Events
-
-```java
-// Example: Search field document listener
-searchField.getDocument().addDocumentListener(new DocumentListener() {
-    @Override
-    public void insertUpdate(DocumentEvent e) { searchStudents(); }
-    @Override
-    public void removeUpdate(DocumentEvent e) { searchStudents(); }
-    @Override
-    public void changedUpdate(DocumentEvent e) { searchStudents(); }
-});
-```
-
-### Data Structures
-
-##### Student Storage
-- `List<Student>` for maintaining student records
-- Stream API for filtering and searching
-
-##### Course Enrollment
-- `Map<String, List<String>>` mapping course IDs to enrolled student IDs
-- Efficient enrollment/unenrollment operations
-
-##### Grade Management
-- `List<Grade>` for storing all grade assignments
-- Date tracking for grade history
-
-## Design Choices
-
-#### GUI Framework Selection
-- **Choice**: Java Swing
-- **Rationale**:
-    - Native Java support without external dependencies
-    - Mature and stable framework
-    - Extensive component library
-    - Cross-platform compatibility
-
-#### Layout Management
-- **Choice**: Combination of BorderLayout, GridBagLayout, and FlowLayout
-- **Rationale**:
-    - BorderLayout for main panel organization
-    - GridBagLayout for precise form control
-    - FlowLayout for button arrangements
-    - Responsive design that adapts to window resizing
-
-#### Data Management
-- **Choice**: In-memory data structures
-- **Rationale**:
-    - Simplifies implementation for academic purposes
-    - Fast data access and manipulation
-    - No external database dependencies
-    - Easy to understand and modify
-
-#### User Interface Design
-- **Choice**: Tabbed interface with consistent styling
-- **Rationale**:
-    - Logical separation of functionality
-    - Familiar interface pattern
-    - Easy navigation between modules
-    - Consistent user experience
-
-#### Validation Strategy
-- **Choice**: Client-side validation with immediate feedback
-- **Rationale**:
-    - Immediate user feedback
-    - Prevents invalid data entry
-    - Reduces system errors
-    - Better user experience
-
-#### Visual Enhancements
-- **Choice**: Custom renderers and color coding
-- **Rationale**:
-    - Improved visual hierarchy
-    - Faster information processing
-    - Better user engagement
-    - Enhanced accessibility
-
-## Error Handling
-
-#### Input Validation
-- **Required Field Validation**: Ensures all mandatory fields are filled
-- **Format Validation**: Validates email format and data types
-- **Duplicate Prevention**: Checks for existing student IDs and course IDs
-- **Range Validation**: Ensures numeric fields are within valid ranges
-- **Prerequisite Validation**: Verifies students meet course prerequisites
-
-#### Exception Handling
-
-```java
-try {
-    // Operation that might fail
-    validateInput();
-    performOperation();
-    showSuccessMessage();
-} catch (IllegalArgumentException e) {
-    // Handle validation errors with specific guidance
-    showErrorDialog("Input Error: " + e.getMessage() + "\nResolution: Please check your input fields.");
-} catch (Exception e) {
-    // Handle unexpected errors with technical details
-    showErrorDialog("System Error: " + e.getMessage() + "\nResolution: Please contact technical support.");
-    // Log for troubleshooting
-    System.err.println("Error: " + e.getMessage());
-    e.printStackTrace();
+// Predicate for dynamic age filtering (though Predicate, it's related to functional interfaces)
+private static Predicate<Employee> isAgeAboveThreshold(int threshold) {
+    return employee -> employee.getAge() > threshold;
 }
 ```
 
-#### User Feedback
-- **Success Messages**: Confirm successful operations with next steps
-- **Error Dialogs**: Clear error descriptions with suggested resolutions
-- **Confirmation Dialogs**: Prevent accidental data loss
-- **Status Updates**: Real-time feedback in status bar
-- **Visual Indicators**: Color coding for grades, GPA, and available seats
+## Stream Operations in Java
+Streams in Java 8 provide a powerful and flexible way to process collections of objects. They represent a sequence of elements on which various aggregate operations can be performed.
 
-#### Graceful Degradation
-- Application continues running even after errors
-- Invalid operations are prevented rather than causing crashes
-- Data integrity maintained through validation
-- User can recover from errors without restarting
+#### Purpose
+The primary purpose of streams is to enable functional-style operations on collections, allowing for declarative data processing. Instead of explicitly iterating over elements using loops (an imperative style), streams allow you to describe *what* operations should be performed on the data. This leads to more concise, readable, and often more efficient code for data manipulation, especially when dealing with large datasets.
 
-## Troubleshooting Guide
+#### Characteristics
+-   **Source**: Streams are created from a data source, such as a `Collection` (e.g., `List`, `Set`), `array`, `I/O channel`, or `generator function`.
+-   **Pipeline**: Stream operations are chained together to form a pipeline. This pipeline consists of zero or more intermediate operations and exactly one terminal operation.
+-   **Intermediate Operations**: These operations transform a stream into another stream (e.g., `filter()`, `map()`, `sorted()`, `peek()`). They are lazy, meaning they are not executed until a terminal operation is invoked.
+-   **Terminal Operations**: These operations produce a result or a side-effect (e.g., `forEach()`, `collect()`, `reduce()`, `count()`, `findFirst()`, `anyMatch()`). Once a terminal operation is performed, the stream is consumed and cannot be reused.
+-   **Functional**: Operations passed to stream methods are typically lambda expressions or method references, promoting a functional programming style.
+-   **Non-interfering**: Stream operations do not modify the underlying data source from which they were created.
+-   **Stateless**: Intermediate operations are generally stateless, meaning they don't depend on the state of previous elements in the stream.
 
-##### Application Won't Start
-- **Issue**: Java Runtime Environment not found
-- **Symptoms**: Error message about missing Java or "java command not found"
-- **Solution**:
-  1. Install Java Development Kit (JDK) 8 or higher
-  2. Verify installation by running `java -version` in command prompt/terminal
-  3. Ensure JAVA_HOME environment variable is set correctly
+#### Usage
+Streams are typically used by following a three-stage process:
+1.  **Creating a stream**: Obtain a stream from a data source (e.g., `myList.stream()`, `Arrays.stream(myArray)`).
+2.  **Applying intermediate operations**: Chain one or more intermediate operations to transform, filter, or sort the elements (e.g., `.filter(...)`, `.map(...)`, `.sorted(...)`). These operations return a new stream.
+3.  **Applying a terminal operation**: Perform a terminal operation to produce a final result or a side effect (e.g., `.collect(Collectors.toList())`, `.forEach(...)`, `.average()`).
 
-##### Student ID Already Exists
-- **Issue**: Attempting to add a student with an ID that already exists
-- **Symptoms**: Error dialog stating "Student ID already exists"
-- **Solution**:
-  1. Check the student table for existing IDs
-  2. Use a different, unique ID for the new student
-  3. If you need to modify an existing student, use the Update function instead
+#### Efficiency Features
+-   **Lazy Evaluation**: Intermediate stream operations are not executed until a terminal operation is called. This allows for optimizations, as unnecessary computations can be avoided. For example, if you `filter` and then `findFirst`, the filtering stops as soon as the first matching element is found.
+-   **Short-Circuiting**: Certain terminal operations (like `findFirst()`, `anyMatch()`, `allMatch()`, `noneMatch()`) can terminate processing of the stream as soon as the result is determined, without processing all elements. This significantly optimizes performance for large datasets.
+-   **Parallel Processing**: The program demonstrates `parallelStream()` for potentially CPU-intensive operations like grouping and averaging. This can leverage multi-core processors to perform operations concurrently, speeding up execution for large datasets.
+-   **Memory Optimization**: Streams process elements one by one (or in chunks for parallel streams), often avoiding the need to load the entire dataset into intermediate collections for each step. This minimizes memory usage compared to creating multiple intermediate lists.
 
-##### Cannot Enroll Student in Course
-- **Issue**: Student cannot be enrolled in a course
-- **Symptoms**: Student remains in the available list after attempting to enroll
-- **Possible Causes and Solutions**:
-  1. **Course at capacity**: Check if the course has reached its enrollment limit
-     - Solution: Increase the enrollment limit in Course Management
-  2. **Missing prerequisites**: Student may not have completed required prerequisites
-     - Solution: Enroll the student in prerequisite courses first
-  3. **System error**: Unexpected application behavior
-     - Solution: Restart the application and try again
+## Compilation and Execution
+1.  **Create `employees.csv`**: Ensure the `employees.csv` file is in the same directory as the compiled `.class` file, or update the `csvFilePath` variable in `EmployeeManagementSystem.java` to point to the correct location.
+    ```csv
+    Name,Age,Department,Salary
+    Alice Johnson,28,Engineering,75000.0
+    Bob Smith,35,Marketing,65000.0
+    Carol Davis,42,Engineering,85000.0
+    David Wilson,29,Sales,55000.0
+    Eva Brown,38,Marketing,70000.0
+    Frank Miller,45,Engineering,95000.0
+    Grace Lee,31,Sales,60000.0
+    Henry Taylor,27,Marketing,58000.0
+    Iris Chen,33,Engineering,80000.0
+    Jack Anderson,40,Sales,72000.0
+    Laura White,25,HR,50000.0
+    Kevin Harris,39,Engineering,88000.0
+    Megan Clark,32,Marketing,67000.0
+    Nathan Lewis,48,Sales,78000.0
+    Olivia Walker,22,HR,48000.0
+    ```
+2.  **Compile the program**: `javac EmployeeManagementSystem.java`
+3.  **Run the program**: `java EmployeeManagementSystem`
 
-##### Grade Not Saving
-- **Issue**: Assigned grade not appearing in the grade table
-- **Symptoms**: Grade reverts to "Not Assigned" after assignment
-- **Solution**:
-  1. Ensure you've selected both a student and a course before assigning
-  2. Click directly on the course row in the table before assigning
-  3. Verify the student is properly enrolled in the course
-
-##### Display Issues
-- **Issue**: UI elements appear cut off or misaligned
-- **Symptoms**: Buttons or fields not fully visible, layout problems
-- **Solution**:
-  1. Ensure screen resolution is at least 1024x768
-  2. Resize the application window to be larger
-  3. Adjust system display scaling settings
-
-##### Error Message Reference
-
-| Error Message                                      | Possible Cause                   | Resolution                                    |
-| -------------------------------------------------- | -------------------------------- | --------------------------------------------- |
-| "Student ID already exists!"                       | Duplicate student ID             | Use a different, unique ID                    |
-| "Course ID already exists!"                        | Duplicate course ID              | Use a different, unique ID                    |
-| "Invalid email format!"                            | Email missing @ or domain        | Enter a valid email with proper format        |
-| "Credits must be a positive number"                | Negative or zero credits value   | Enter a positive number for credits           |
-| "Please select a student to update!"               | No student selected in table     | Click on a student row before updating        |
-| "Enrollment Limit must be a valid number"          | Non-numeric value in limit field | Enter a numeric value for the limit           |
-| "Cannot enroll X students. Only Y seats available" | Course at capacity               | Enroll fewer students or increase limit       |
-| "The following students do not meet prerequisites" | Missing prerequisites            | Enroll students in prerequisite courses first |
-
-## Developer Guide
-
-#### Existing Class Hierarchy
+## Sample Output
+The program generates comprehensive output including:
 
 ```
-StudentManagementSystem (JFrame)
-├── AnimatedTabbedPane (JTabbedPane)
-├── StudentPanel (JPanel)
-├── CourseManagementPanel (JPanel)
-├── CoursePanel (JPanel)
-└── GradePanel (JPanel)
+=== Original Employee Dataset (from CSV) ===
+Employee{name='Alice Johnson', age=28, department='Engineering', salary=75000.00}
+Employee{name='Bob Smith', age=35, department='Marketing', salary=65000.00}
+Employee{name='Carol Davis', age=42, department='Engineering', salary=85000.00}
+Employee{name='David Wilson', age=29, department='Sales', salary=55000.00}
+Employee{name='Eva Brown', age=38, department='Marketing', salary=70000.00}
+Employee{name='Frank Miller', age=45, department='Engineering', salary=95000.00}
+Employee{name='Grace Lee', age=31, department='Sales', salary=60000.00}
+Employee{name='Henry Taylor', age=27, department='Marketing', salary=58000.00}
+Employee{name='Iris Chen', age=33, department='Engineering', salary=80000.00}
+Employee{name='Jack Anderson', age=40, department='Sales', salary=72000.00}
+Employee{name='Laura White', age=25, department='HR', salary=50000.00}
+Employee{name='Kevin Harris', age=39, department='Engineering', salary=88000.00}
+Employee{name='Megan Clark', age=32, department='Marketing', salary=67000.00}
+Employee{name='Nathan Lewis', age=48, department='Sales', salary=78000.00}
+Employee{name='Olivia Walker', age=22, department='HR', salary=48000.00}
 
-Data Models:
-├── Student
-├── Course
-└── Grade
+=== Name and Department Concatenation ===
+Alice Johnson - Engineering
+Bob Smith - Marketing
+Carol Davis - Engineering
+David Wilson - Sales
+Eva Brown - Marketing
+Frank Miller - Engineering
+Grace Lee - Sales
+Henry Taylor - Marketing
+Iris Chen - Engineering
+Jack Anderson - Sales
+Laura White - HR
+Kevin Harris - Engineering
+Megan Clark - Marketing
+Nathan Lewis - Sales
+Olivia Walker - HR
 
-Managers:
-├── StudentManager
-├── CourseManager
-└── GradeManager
+=== Average Salary Calculation ===
+Average Salary: $69866.67
 
-Custom Components:
-├── CourseListCellRenderer
-├── StudentListCellRenderer
-└── GradeCellRenderer
+=== Employees Above Age 30 ===
+Bob Smith - Marketing
+Carol Davis - Engineering
+Eva Brown - Marketing
+Frank Miller - Engineering
+Grace Lee - Sales
+Iris Chen - Engineering
+Jack Anderson - Sales
+Kevin Harris - Engineering
+Megan Clark - Marketing
+Nathan Lewis - Sales
+
+=== Enhanced Analysis: Filtered Employees (Above Age 30) with Salary Info ===
+Bob Smith - Marketing (Salary: $65000.00)
+Carol Davis - Engineering (Salary: $85000.00)
+Eva Brown - Marketing (Salary: $70000.00)
+Frank Miller - Engineering (Salary: $95000.00)
+Grace Lee - Sales (Salary: $60000.00)
+Iris Chen - Engineering (Salary: $80000.00)
+Jack Anderson - Sales (Salary: $72000.00)
+Kevin Harris - Engineering (Salary: $88000.00)
+Megan Clark - Marketing (Salary: $67000.00)
+Nathan Lewis - Sales (Salary: $78000.00)
+
+=== Advanced Statistical Analysis ===
+Department-wise Average Salary:
+  Engineering: $82600.00
+  Sales: $65000.00
+  Marketing: $66666.67
+  HR: $49000.00
+
+Salary Statistics:
+  Count: 15
+  Min: $48000.00
+  Max: $95000.00
+  Average: $69866.67
+  Sum: $1048000.00
+
+Top 3 Highest Paid Employees:
+  Frank Miller - Engineering (Salary: $95000.00)
+  Kevin Harris - Engineering (Salary: $88000.00)
+  Carol Davis - Engineering (Salary: $85000.00)
+
+Age Distribution:
+  Young (≤30): 5 employees
+  Mid-career (31-40): 7 employees
+  Senior (>40): 3 employees
+
+=== Stream Efficiency Demonstration ===
+Finding first high-salary employee in Engineering (salary > $80,000):
+  Processing (peek): Alice Johnson
+  Processing (peek): Bob Smith
+  Processing (peek): Carol Davis
+  Passed Engineering filter: Carol Davis
+  Passed Salary filter: Carol Davis
+  Found: Carol Davis - Engineering (Salary: $85000.00)
+
+Has employee earning over $90,000: 
+  Checking for high earner (anyMatch): Alice Johnson
+  Checking for high earner (anyMatch): Bob Smith
+  Checking for high earner (anyMatch): Carol Davis
+  Checking for high earner (anyMatch): David Wilson
+  Checking for high earner (anyMatch): Eva Brown
+  Checking for high earner (anyMatch): Frank Miller
+Has employee earning over $90,000: true
+
+============================================================
+Program execution completed.
 ```
 
-## Contributor's Guide to Extending the Application
+## Architecture Improvement Recommendations
 
-##### Adding a New Feature
-To add a new feature to the application:
+#### Current Architecture Analysis
+The current implementation is a single Java file (`EmployeeManagementSystem.java`) containing all logic, including the `Employee` data class, data loading, processing functions, and the main application driver. While suitable for this assignment, a production-ready system would benefit significantly from a modular design based on separation of concerns.
 
-1. **Identify the appropriate module**: Determine which existing panel should contain the feature, or if a new panel is needed
-2. **Update data models**: Modify or create data classes as needed
-3. **Update manager classes**: Add methods to handle the new functionality
-4. **Create/update UI components**: Add necessary GUI elements
-5. **Implement event handlers**: Add action listeners and event handling code
-6. **Update documentation**: Document the new feature
-
-##### Example: Adding a Search Feature
-
-```java
-// 1. Add search field to StudentPanel
-private JTextField searchField;
-
-// 2. Initialize in initializeComponents()
-searchField = new JTextField(20);
-JButton searchButton = new JButton("Search");
-
-// 3. Add to layout
-JPanel searchPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-searchPanel.add(new JLabel("Search:"));
-searchPanel.add(searchField);
-searchPanel.add(searchButton);
-add(searchPanel, BorderLayout.SOUTH);
-
-// 4. Add event handler
-searchButton.addActionListener(e -> searchStudents());
-searchField.addActionListener(e -> searchStudents());
-
-// 5. Implement search functionality
-private void searchStudents() {
-    String query = searchField.getText().trim().toLowerCase();
-    if (query.isEmpty()) {
-        refreshTable(); // Show all if search is empty
-        return;
-    }
-  
-    tableModel.setRowCount(0);
-    for (Student student : studentManager.getAllStudents()) {
-        // Search in all fields
-        if (student.getStudentId().toLowerCase().contains(query) ||
-            student.getName().toLowerCase().contains(query) ||
-            student.getEmail().toLowerCase().contains(query) ||
-            student.getMajor().toLowerCase().contains(query)) {
-    
-            Object[] row = {
-                student.getStudentId(),
-                student.getName(),
-                student.getEmail(),
-                student.getMajor()
-            };
-            tableModel.addRow(row);
-        }
-    }
-}
-```
-
-### Project Best Practices for Modifications
-1. **Maintain separation of concerns**: Keep data logic in manager classes, UI logic in panel classes
-2. **Use consistent error handling**: Follow the established pattern for validation and error messages
-3. **Update all affected components**: When modifying data, call appropriate refresh methods
-4. **Document your changes**: Add comments explaining new code and update the README
-5. **Test thoroughly**: Verify that your changes work correctly and don't break existing functionality
-
-### Performance Considerations When Contemplating Additions
-1. **Large datasets**: For applications with many students/courses, implement pagination or virtual scrolling
-2. **Memory management**: Dispose of resources properly, especially when working with images or custom renderers
-3. **UI responsiveness**: Perform long-running operations in background threads to keep the UI responsive
-4. **Data persistence**: Consider implementing database storage for production use
-
-## Refactoring for Production: Beyond the Assignment
-While the current implementation works well for the assignment, in a real-world production environment, the code should be refactored to follow better software engineering practices. This section outlines how you could restructure the application for improved maintainability, scalability, and testability. Refactoring the project structure would enforce the following benefits:
-1. **Improved Maintainability**: Smaller, focused files are easier to understand and modify
-2. **Better Collaboration**: Multiple developers can work on different components simultaneously
-3. **Enhanced Testability**: Isolated components are easier to test independently
-4. **Clearer Dependencies**: Package structure makes dependencies explicit
-5. **Separation of Concerns**: Clear distinction between UI, business logic, and data access
-
-#### Implementation Strategy
-To refactor the current monolithic application:
-1. Extract model classes first (Student, Course, Grade)
-2. Create service interfaces and implementations
-3. Extract UI components into separate view classes
-4. Implement controllers to connect views and services
-5. Create utility classes for cross-cutting concerns
-6. Update the main application class to use the new structure
+#### Recommended File Structure (Modular)
 
 ```
-com.sms/
-├── model/                  # Data models
-│   ├── Student.java
-│   ├── Course.java
-│   └── Grade.java
-├── dao/                    # Data Access Objects
-│   ├── StudentDAO.java
-│   ├── CourseDAO.java
-│   └── GradeDAO.java
-├── service/                # Business logic
-│   ├── StudentService.java
-│   ├── CourseService.java
-│   ├── EnrollmentService.java
-│   └── GradeService.java
-├── controller/             # Controllers connecting UI and services
-│   ├── StudentController.java
-│   ├── CourseController.java
-│   ├── EnrollmentController.java
-│   └── GradeController.java
-├── view/                   # UI components
-│   ├── MainFrame.java
-│   ├── panel/
-│   │   ├── StudentPanel.java
-│   │   ├── CourseManagementPanel.java
-│   │   ├── CourseEnrollmentPanel.java
-│   │   └── GradePanel.java
-│   ├── renderer/
-│   │   ├── StudentListCellRenderer.java
-│   │   ├── CourseListCellRenderer.java
-│   │   └── GradeCellRenderer.java
-│   └── component/
-│       ├── AnimatedTabbedPane.java
-│       └── SearchField.java
-├── util/                   # Utility classes
-│   ├── ValidationUtil.java
-│   ├── FormatUtil.java
-│   └── UIUtil.java
-└── SMS.java                # Main application entry point
+src/
+├── main/
+│   └── java/
+│       └── com/
+│           └── company/
+│               └── employee/
+│                   ├── EmployeeManagementApplication.java  // Main entry point
+│                   ├── model/
+│                   │   └── Employee.java                   // Data class
+│                   ├── service/
+│                   │   ├── EmployeeProcessingService.java  // Core data processing logic
+│                   │   └── EmployeeAnalysisService.java  // Statistical analysis
+│                   ├── repository/
+│                   │   ├── EmployeeRepository.java         // Interface for data access
+│                   │   └── CSVEEmployeeLoader.java         // Implements reading from CSV
+│                   ├── function/
+│                   │   ├── EmployeeTransformers.java       // Container for Function instances
+│                   │   └── EmployeePredicates.java       // Container for Predicate-returning methods
+│                   └── util/
+│                       └── StatisticsUtil.java           // Helper for complex stats if needed
+└── test/
+    └── java/
+        └── com/
+            └── company/
+                └── employee/
+                    ├── service/
+                    │   ├── EmployeeProcessingServiceTest.java
+                    │   └── EmployeeAnalysisServiceTest.java
+                    └── repository/
+                        └── CSVEEmployeeLoaderTest.java
 ```
+#### Benefits of This Modular Architecture
+1.  **Separation of Concerns (SoC)**: Each class/package has a well-defined, single responsibility, making the codebase easier to understand and manage.
+2.  **Testability**: Individual components (services, repositories, functions) can be unit-tested in isolation, often with mocks for their dependencies, leading to more robust code.
+3.  **Maintainability**: Changes in one area (e.g., CSV parsing logic) are less likely to impact other unrelated areas (e.g., statistical analysis), reducing the risk of introducing bugs.
+4.  **Reusability**: Utility classes, functions, and even services can be reused in other parts of the application or in different applications, promoting a DRY (Don't Repeat Yourself) principle.
+5.  **Scalability**: Easier to add new features or modify existing ones by adding new classes/methods or modifying specific components without overhauling the entire system.
+6.  **Readability**: A well-organized project structure with meaningful package and class names is easier for new developers to onboard and for existing developers to navigate.
+7.  **Dependency Management**: Facilitates the use of dependency injection frameworks (like Spring) for managing component relationships.
 
-### Component Responsibilities
+#### Step-by-Step Refactoring
+Here's how components of the current `EmployeeManagementSystem.java` would map to the modular structure:
 
-##### Model Layer
-- **Student, Course, Grade**: Simple POJOs (Plain Old Java Objects) with properties and minimal logic
+1.  **`public static class Employee`**:
+    *   **Moves to**: `src/main/java/com/company/employee/model/Employee.java`.
+    *   **Reasoning**: This is a core data model entity and should reside in its own file within the `model` package.
 
-##### Data Access Layer
-- **StudentDAO, CourseDAO, GradeDAO**: Handle data persistence operations (in a real app, these would connect to a database)
+2.  **`private static final Function<Employee, String> mapEmployeeToNameAndDepartmentString`**, **`private static final Function<Employee, String> mapEmployeeToDetailedInfoString`**, and **`private static final Function<Employee, Double> mapEmployeeToSalaryDouble`**:
+    *   **Moves to**: `src/main/java/com/company/employee/function/EmployeeTransformers.java` as public static final fields or methods returning these functions.
+    *   **Reasoning**: These are reusable transformation functions. Grouping them in a dedicated `Transformers` class within a `function` package improves organization and reusability.
 
-##### Service Layer
-- **StudentService**: Business logic for student operations
-- **CourseService**: Business logic for course operations
-- **EnrollmentService**: Business logic for enrollment operations
-- **GradeService**: Business logic for grade operations and GPA calculations
+3.  **`private static Predicate<Employee> isAgeAboveThreshold(int threshold)`**:
+    *   **Moves to**: `src/main/java/com/company/employee/function/EmployeePredicates.java` as a public static method.
+    *   **Reasoning**: This method generates reusable filter logic (Predicates).
 
-##### Controller Layer
-- **StudentController, CourseController, etc.**: Coordinate between UI and services, handle events
+4.  **`private static List<Employee> readEmployeesFromCSV(String filePath)`**:
+    *   **Moves to**: `src/main/java/com/company/employee/repository/CSVEEmployeeLoader.java`. This class would implement an `EmployeeRepository` interface (e.g., `interface EmployeeRepository { List<Employee> loadAll(); }`) to abstract data access.
+    *   **Method Signature Change**: Might become `public List<Employee> loadEmployees(String filePath)` or `public List<Employee> loadAll()` if the path is configured internally.
+    *   **Reasoning**: Data loading is a distinct responsibility, fitting the repository pattern.
 
-##### View Layer
-- **MainFrame**: Main application window
-- **Panels**: Specialized UI components for different functions
-- **Renderers**: Custom rendering for lists and tables
-- **Components**: Reusable UI components
+5.  **`private static void processEmployeeData(List<Employee> employees, int ageFilterThreshold)`**:
+    *   **Logic split and moves to**:
+        *   The orchestration part (calling other services/functions, printing initial results) would be in `src/main/java/com/company/employee/service/EmployeeProcessingService.java`.
+        *   This service would use `EmployeeTransformers`, `EmployeePredicates` (from the `function` package) and fetch data via the `EmployeeRepository`.
+        *   Specific calculations like average salary might be delegated to `EmployeeAnalysisService.java` or performed within `EmployeeProcessingService` if simple.
+    *   **Reasoning**: Separates core business logic for processing from data loading and presentation.
 
-##### Utility Layer
-- **ValidationUtil**: Input validation logic
-- **FormatUtil**: Formatting utilities for display
-- **UIUtil**: Common UI helper methods
+6.  **`private static void performAdvancedAnalysis(List<Employee> employees, int ageFilterThreshold)`**:
+    *   **Moves to**: `src/main/java/com/company/employee/service/EmployeeAnalysisService.java`.
+    *   **Reasoning**: This method is purely for statistical analysis and reporting, a clear service responsibility.
+
+7.  **`private static void demonstrateStreamEfficiency(List<Employee> employees)`**:
+    *   **Consideration**: For a production app, such explicit demonstration methods might be removed or moved to a separate examples/testing package. If kept for educational purposes within the main app, it could be a private utility method called by a service or the main application for illustrative output.
+    *   **If kept**: Could be part of `EmployeeProcessingService` or a dedicated `StreamDemonstrationService`, invoked conditionally.
+
+8.  **`public static void main(String[] args)`**:
+    *   **Moves to**: `src/main/java/com/company/employee/EmployeeManagementApplication.java`.
+    *   **Responsibilities**:
+        *   Initialize and wire up dependencies (e.g., create instances of services and repositories).
+        *   Define configuration (like CSV file path, dynamic age threshold).
+        *   Invoke service methods to start the application workflow.
+        *   Handle top-level console output.
+    *   **Reasoning**: The main entry point of the application, responsible for orchestration and setup.
