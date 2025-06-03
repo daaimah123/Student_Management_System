@@ -2,8 +2,8 @@ package com.university.model;
 
 public class Employee extends Person {
     private String position;
-    private Department department; // Reference to Department object
-    private int departmentId; // For database storage
+    private Department department; // I'm storing the full Department object for convenience
+    private int departmentId; // But I also need the ID for database operations
 
     public Employee() {
         super();
@@ -24,7 +24,6 @@ public class Employee extends Person {
         this.departmentId = departmentId;
     }
 
-
     public String getPosition() {
         return position;
     }
@@ -42,7 +41,7 @@ public class Employee extends Person {
         if (department != null) {
             this.departmentId = department.getId();
         } else {
-            this.departmentId = 0; // Or handle as appropriate
+            this.departmentId = 0; // I'm using 0 to indicate no department for now
         }
     }
 

@@ -1,8 +1,7 @@
 package com.university.model;
 
 public class Student extends Person {
-    // Student-specific fields can be added here if needed
-    // For now, it inherits all fields from Person
+    // I'm keeping this simple for now - could add student-specific fields later like GPA, major, etc.
 
     public Student() {
         super();

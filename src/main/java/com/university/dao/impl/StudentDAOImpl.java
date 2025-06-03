@@ -22,7 +22,7 @@ public class StudentDAOImpl implements StudentDAO {
             pstmt.executeUpdate();
             try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
-                    student.setId(generatedKeys.getInt(1));
+                    student.setId(generatedKeys.getInt(1)); // Setting the auto-generated ID back
                 }
             }
         }
@@ -52,7 +52,7 @@ public class StudentDAOImpl implements StudentDAO {
 
     @Override
     public List<Student> getAllStudents() throws SQLException {
-        String sql = "SELECT * FROM students ORDER BY lastName, firstName";
+        String sql = "SELECT * FROM students ORDER BY lastName, firstName"; // I want them sorted by last name first
         List<Student> students = new ArrayList<>();
         try (Connection conn = DatabaseUtil.getConnection();
              Statement stmt = conn.createStatement();

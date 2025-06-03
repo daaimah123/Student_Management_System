@@ -22,13 +22,13 @@ public class GradeService {
         if (gradeValue == null || gradeValue.trim().isEmpty()) {
             throw new IllegalArgumentException("Grade value cannot be empty.");
         }
-        // Check if grade already exists for this enrollment
+        // I'm checking if a grade already exists for this enrollment to prevent duplicates
         Grade existingGrade = gradeDAO.getGradeByEnrollment(enrollment.getId());
         if (existingGrade != null) {
             throw new IllegalArgumentException("A grade already exists for this enrollment. Update it instead.");
         }
 
-        Grade grade = new Grade(0, enrollment, gradeValue, comments); // ID set by DAO
+        Grade grade = new Grade(0, enrollment, gradeValue, comments); // ID will be set by DAO
         gradeDAO.addGrade(grade);
     }
 

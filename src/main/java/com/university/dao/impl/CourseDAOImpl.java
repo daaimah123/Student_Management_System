@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CourseDAOImpl implements CourseDAO {
-    private DepartmentDAO departmentDAO = new DepartmentDAOImpl();
+    private DepartmentDAO departmentDAO = new DepartmentDAOImpl(); // I need this for department lookups
 
     @Override
     public void addCourse(Course course) throws SQLException {
@@ -27,7 +27,7 @@ public class CourseDAOImpl implements CourseDAO {
                 pstmt.setInt(4, course.getDepartmentId());
             }
             else {
-                pstmt.setNull(4, Types.INTEGER);
+                pstmt.setNull(4, Types.INTEGER); // Some courses might be interdisciplinary
             }
             pstmt.executeUpdate();
             try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
@@ -67,7 +67,7 @@ public class CourseDAOImpl implements CourseDAO {
 
     @Override
     public List<Course> getAllCourses() throws SQLException {
-        String sql = "SELECT * FROM courses ORDER BY courseName";
+        String sql = "SELECT * FROM courses ORDER BY courseName"; // I'm sorting by course name for easier browsing
         List<Course> courses = new ArrayList<>();
         try (Connection conn = DatabaseUtil.getConnection();
              Statement stmt = conn.createStatement();

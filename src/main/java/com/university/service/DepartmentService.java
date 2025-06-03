@@ -15,7 +15,7 @@ public class DepartmentService {
     }
 
     public void addDepartment(Department department) throws SQLException {
-        // Add validation if needed
+        // I should add more validation here when I have time
         departmentDAO.addDepartment(department);
     }
 
@@ -28,12 +28,12 @@ public class DepartmentService {
     }
 
     public void updateDepartment(Department department) throws SQLException {
-        // Add validation if needed
+        // I should add validation here too
         departmentDAO.updateDepartment(department);
     }
 
     public void deleteDepartment(int id) throws SQLException {
-        // Add business logic for cascading deletes or checks if needed
+        // I need to handle cascading deletes or checks for employees/courses in this department
         departmentDAO.deleteDepartment(id);
     }
 }

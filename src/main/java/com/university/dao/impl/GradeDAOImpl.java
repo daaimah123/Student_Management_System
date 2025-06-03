@@ -11,9 +11,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GradeDAOImpl implements GradeDAO {
-    private EnrollmentDAO enrollmentDAO = new EnrollmentDAOImpl();
+    private EnrollmentDAO enrollmentDAO = new EnrollmentDAOImpl(); // I need this to build complete Grade objects
 
     private Grade mapResultSetToGrade(ResultSet rs) throws SQLException {
+        // Another helper method to avoid repetition
         Enrollment enrollment = enrollmentDAO.getEnrollment(rs.getInt("enrollmentId"));
         return new Grade(
                 rs.getInt("id"),
@@ -71,7 +72,6 @@ public class GradeDAOImpl implements GradeDAO {
         }
         return grade;
     }
-
 
     @Override
     public List<Grade> getAllGrades() throws SQLException {

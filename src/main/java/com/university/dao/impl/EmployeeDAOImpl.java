@@ -1,7 +1,7 @@
 package com.university.dao.impl;
 
 import com.university.dao.EmployeeDAO;
-import com.university.dao.DepartmentDAO; // To fetch Department object
+import com.university.dao.DepartmentDAO; // I need this to fetch Department objects
 import com.university.model.Employee;
 import com.university.model.Department;
 import com.university.util.DatabaseUtil;
@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeDAOImpl implements EmployeeDAO {
-    private DepartmentDAO departmentDAO = new DepartmentDAOImpl(); // For fetching department details
+    private DepartmentDAO departmentDAO = new DepartmentDAOImpl(); // I'm using this to fetch department details
 
     @Override
     public void addEmployee(Employee employee) throws SQLException {
@@ -29,7 +29,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
                  pstmt.setInt(6, employee.getDepartmentId());
             }
             else {
-                pstmt.setNull(6, Types.INTEGER);
+                pstmt.setNull(6, Types.INTEGER); // Some employees might not have a department assigned yet
             }
             pstmt.executeUpdate();
             try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
@@ -51,7 +51,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
                 if (rs.next()) {
                     Department department = null;
                     int departmentId = rs.getInt("departmentId");
-                    if (!rs.wasNull()) { // Check if departmentId was NULL in DB
+                    if (!rs.wasNull()) { // I need to check if departmentId was actually NULL in the database
                         department = departmentDAO.getDepartment(departmentId);
                     }
                     employee = new Employee(
@@ -61,7 +61,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
                             rs.getString("email"),
                             rs.getString("dateOfBirth"),
                             rs.getString("position"),
-                            department // Pass the fetched Department object
+                            department // Passing the full Department object
                     );
                 }
             }
@@ -71,7 +71,7 @@ public class EmployeeDAOImpl implements EmployeeDAO {
 
     @Override
     public List<Employee> getAllEmployees() throws SQLException {
-        String sql = "SELECT * FROM employees ORDER BY lastName, firstName";
+        String sql = "SELECT * FROM employees ORDER BY lastName, firstName"; // Consistent sorting with students
         List<Employee> employees = new ArrayList<>();
         try (Connection conn = DatabaseUtil.getConnection();
              Statement stmt = conn.createStatement();

@@ -20,20 +20,20 @@ public class StudentPanel extends JPanel {
         studentService = new StudentService();
         setLayout(new BorderLayout());
 
-        // Table setup
+        // I'm setting up the table with specific columns
         String[] columnNames = {"ID", "First Name", "Last Name", "Email", "Date of Birth"};
         tableModel = new DefaultTableModel(columnNames, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
-                return false; // Make table cells non-editable
+                return false; // I'm making table cells non-editable to prevent accidental changes
             }
         };
         studentTable = new JTable(tableModel);
-        studentTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // Allow only single row selection
+        studentTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // Only allow single row selection
         JScrollPane scrollPane = new JScrollPane(studentTable);
         add(scrollPane, BorderLayout.CENTER);
 
-        // Button panel
+        // Button panel at the bottom
         JPanel buttonPanel = new JPanel();
         JButton addButton = new JButton("Add Student");
         JButton editButton = new JButton("Edit Student");
@@ -46,10 +46,10 @@ public class StudentPanel extends JPanel {
         buttonPanel.add(refreshButton);
         add(buttonPanel, BorderLayout.SOUTH);
 
-        // Load initial data
+        // Load initial data when the panel is created
         loadStudents();
 
-        // Action Listeners
+        // I'm setting up action listeners for all the buttons
         addButton.addActionListener(this::addStudentAction);
         editButton.addActionListener(this::editStudentAction);
         deleteButton.addActionListener(this::deleteStudentAction);
@@ -59,7 +59,7 @@ public class StudentPanel extends JPanel {
     private void loadStudents() {
         try {
             List<Student> students = studentService.getAllStudents();
-            tableModel.setRowCount(0); // Clear existing data
+            tableModel.setRowCount(0); // Clear existing data first
             for (Student student : students) {
                 tableModel.addRow(new Object[]{
                         student.getId(),
@@ -79,7 +79,7 @@ public class StudentPanel extends JPanel {
         StudentDialog dialog = new StudentDialog((Frame) SwingUtilities.getWindowAncestor(this), "Add Student", null, studentService);
         dialog.setVisible(true);
         if (dialog.isSaved()) {
-            loadStudents(); // Refresh table
+            loadStudents(); // Refresh the table if something was saved
         }
     }
 
@@ -93,7 +93,7 @@ public class StudentPanel extends JPanel {
                     StudentDialog dialog = new StudentDialog((Frame) SwingUtilities.getWindowAncestor(this), "Edit Student", studentToEdit, studentService);
                     dialog.setVisible(true);
                     if (dialog.isSaved()) {
-                        loadStudents(); // Refresh table
+                        loadStudents(); // Refresh the table
                     }
                 } else {
                      JOptionPane.showMessageDialog(this, "Student not found.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -118,7 +118,7 @@ public class StudentPanel extends JPanel {
             if (confirmation == JOptionPane.YES_OPTION) {
                 try {
                     studentService.deleteStudent(studentId);
-                    loadStudents(); // Refresh table
+                    loadStudents(); // Refresh the table
                     JOptionPane.showMessageDialog(this, "Student deleted successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(this, "Error deleting student: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);

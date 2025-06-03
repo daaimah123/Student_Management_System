@@ -11,19 +11,19 @@ import java.sql.SQLException;
 public class StudentDialog extends JDialog {
     private JTextField firstNameField, lastNameField, emailField, dobField;
     private StudentService studentService;
-    private Student currentStudent; // For editing
+    private Student currentStudent; // For editing existing students
     private boolean saved = false;
 
     public StudentDialog(Frame owner, String title, Student student, StudentService service) {
-        super(owner, title, true); // true for modal
+        super(owner, title, true); // Making it modal so users can't click away
         this.currentStudent = student;
         this.studentService = service;
 
         setLayout(new BorderLayout());
-        setSize(400, 250);
+        setSize(400, 250); // I sized this to fit the form nicely
         setLocationRelativeTo(owner);
 
-        JPanel formPanel = new JPanel(new GridLayout(0, 2, 10, 10)); // rows, cols, hgap, vgap
+        JPanel formPanel = new JPanel(new GridLayout(0, 2, 10, 10)); // The spacing makes it look cleaner
         formPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         formPanel.add(new JLabel("First Name:"));
@@ -42,6 +42,7 @@ public class StudentDialog extends JDialog {
         dobField = new JTextField(20);
         formPanel.add(dobField);
 
+        // If we're editing, populate the fields with existing data
         if (currentStudent != null) {
             firstNameField.setText(currentStudent.getFirstName());
             lastNameField.setText(currentStudent.getLastName());
@@ -66,18 +67,17 @@ public class StudentDialog extends JDialog {
         String firstName = firstNameField.getText().trim();
         String lastName = lastNameField.getText().trim();
         String email = emailField.getText().trim();
-        String dob = dobField.getText().trim(); // Add date validation if needed
+        String dob = dobField.getText().trim(); // I should add proper date validation here later
 
         if (firstName.isEmpty() || lastName.isEmpty()) {
             JOptionPane.showMessageDialog(this, "First name and last name cannot be empty.", "Validation Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        // Basic email validation (can be more robust)
+        // Basic email validation - I could make this more robust later
         if (!email.isEmpty() && !email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
             JOptionPane.showMessageDialog(this, "Invalid email format.", "Validation Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
 
         Student studentToSave;
         if (currentStudent == null) { // Adding new student
@@ -99,7 +99,7 @@ public class StudentDialog extends JDialog {
                 JOptionPane.showMessageDialog(this, "Student updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
             }
             saved = true;
-            dispose(); // Close dialog
+            dispose(); // Close the dialog
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this, "Error saving student: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
@@ -109,6 +109,6 @@ public class StudentDialog extends JDialog {
     }
 
     public boolean isSaved() {
-        return saved;
+        return saved; // The parent panel uses this to know if it should refresh
     }
 }

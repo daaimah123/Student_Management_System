@@ -3,10 +3,10 @@ package com.university.model;
 public class Grade {
     private int id;
     private Enrollment enrollment;
-    private String gradeValue; // e.g., "A", "B+", "3.5"
+    private String gradeValue; // I'm keeping this flexible - could be "A", "B+", "3.5", etc.
     private String comments;
 
-    private int enrollmentId; // for DB
+    private int enrollmentId; // For database operations
 
     public Grade() {}
 

@@ -15,7 +15,7 @@ public class StudentService {
     }
 
     public void addStudent(Student student) throws SQLException {
-        // Add validation logic here, e.g., check for nulls, email format
+        // I'm doing basic validation here - should expand this later
         if (student.getFirstName() == null || student.getFirstName().trim().isEmpty() ||
             student.getLastName() == null || student.getLastName().trim().isEmpty()) {
             throw new IllegalArgumentException("First name and last name cannot be empty.");
@@ -40,7 +40,7 @@ public class StudentService {
     }
 
     public void deleteStudent(int id) throws SQLException {
-        // Consider business logic: e.g., unenroll from courses before deleting
+        // I should consider business logic here: maybe unenroll from courses before deleting
         studentDAO.deleteStudent(id);
     }
 }

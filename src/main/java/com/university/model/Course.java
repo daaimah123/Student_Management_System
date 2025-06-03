@@ -5,8 +5,8 @@ public class Course {
     private String courseCode;
     private String courseName;
     private int credits;
-    private Department department; // Reference to Department object
-    private int departmentId; // For database storage
+    private Department department; // Full Department object for display purposes
+    private int departmentId; // ID for database storage
 
     public Course() {}
 
@@ -48,6 +48,6 @@ public class Course {
 
     @Override
     public String toString() {
-        return courseCode + " - " + courseName; // For JComboBox rendering
+        return courseCode + " - " + courseName; // This makes the course display nicely in dropdowns
     }
 }

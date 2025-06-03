@@ -19,7 +19,7 @@ public class EmployeeService {
             employee.getLastName() == null || employee.getLastName().trim().isEmpty()) {
             throw new IllegalArgumentException("First name and last name cannot be empty.");
         }
-        // Additional validation for position, department, etc.
+        // I should add more validation for position, department, etc. when I get a chance
         employeeDAO.addEmployee(employee);
     }
 

@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EnrollmentDAOImpl implements EnrollmentDAO {
-    private StudentDAO studentDAO = new StudentDAOImpl();
+    private StudentDAO studentDAO = new StudentDAOImpl(); // I need these to build complete Enrollment objects
     private CourseDAO courseDAO = new CourseDAOImpl();
 
     @Override
@@ -42,15 +42,15 @@ public class EnrollmentDAOImpl implements EnrollmentDAO {
             pstmt.setInt(2, courseId);
             try (ResultSet rs = pstmt.executeQuery()) {
                 if (rs.next()) {
-                    return rs.getInt(1) > 0;
+                    return rs.getInt(1) > 0; // I'm checking if any enrollments exist for this combo
                 }
             }
         }
         return false;
     }
 
-
     private Enrollment mapResultSetToEnrollment(ResultSet rs) throws SQLException {
+        // I'm extracting this to avoid code duplication - learned this pattern from experience
         Student student = studentDAO.getStudent(rs.getInt("studentId"));
         Course course = courseDAO.getCourse(rs.getInt("courseId"));
         return new Enrollment(
@@ -122,7 +122,6 @@ public class EnrollmentDAOImpl implements EnrollmentDAO {
         }
         return enrollments;
     }
-
 
     @Override
     public void updateEnrollment(Enrollment enrollment) throws SQLException {

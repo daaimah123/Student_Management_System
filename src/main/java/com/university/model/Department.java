@@ -29,6 +29,6 @@ public class Department {
 
     @Override
     public String toString() {
-        return name; // Important for JComboBox rendering
+        return name; // This is crucial for JComboBox rendering - learned this the hard way
     }
 }

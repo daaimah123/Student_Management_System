@@ -10,7 +10,7 @@ public interface EnrollmentDAO {
     List<Enrollment> getAllEnrollments() throws SQLException;
     List<Enrollment> getEnrollmentsByStudent(int studentId) throws SQLException;
     List<Enrollment> getEnrollmentsByCourse(int courseId) throws SQLException;
-    void updateEnrollment(Enrollment enrollment) throws SQLException; // Usually just date
+    void updateEnrollment(Enrollment enrollment) throws SQLException; // Mainly for date changes
     void deleteEnrollment(int id) throws SQLException;
     boolean isStudentEnrolled(int studentId, int courseId) throws SQLException;
 }

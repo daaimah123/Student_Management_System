@@ -4,10 +4,10 @@ public class Enrollment {
     private int id;
     private Student student;
     private Course course;
-    private String enrollmentDate; // Consider LocalDate
+    private String enrollmentDate; // I should consider LocalDate here too, but strings work for now
 
-    private int studentId; // for DB
-    private int courseId; // for DB
+    private int studentId; // These IDs are for database operations
+    private int courseId;
 
     public Enrollment() {}
 

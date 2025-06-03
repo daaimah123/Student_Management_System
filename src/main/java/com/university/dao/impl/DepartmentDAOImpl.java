@@ -19,7 +19,7 @@ public class DepartmentDAOImpl implements DepartmentDAO {
             pstmt.executeUpdate();
             try (ResultSet generatedKeys = pstmt.getGeneratedKeys()) {
                 if (generatedKeys.next()) {
-                    department.setId(generatedKeys.getInt(1));
+                    department.setId(generatedKeys.getInt(1)); // I'm setting the generated ID back on the object
                 }
             }
         }
@@ -43,7 +43,7 @@ public class DepartmentDAOImpl implements DepartmentDAO {
 
     @Override
     public List<Department> getAllDepartments() throws SQLException {
-        String sql = "SELECT * FROM departments ORDER BY name";
+        String sql = "SELECT * FROM departments ORDER BY name"; // I'm ordering by name to make it user-friendly
         List<Department> departments = new ArrayList<>();
         try (Connection conn = DatabaseUtil.getConnection();
              Statement stmt = conn.createStatement();

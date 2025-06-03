@@ -11,7 +11,6 @@ import java.util.List;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
-
 public class EnrollmentService {
     private EnrollmentDAO enrollmentDAO;
 
@@ -27,7 +26,7 @@ public class EnrollmentService {
             throw new IllegalArgumentException("Student is already enrolled in this course.");
         }
         
-        String currentDate = LocalDate.now().format(DateTimeFormatter.ISO_DATE);
+        String currentDate = LocalDate.now().format(DateTimeFormatter.ISO_DATE); // I'm auto-setting today's date
         Enrollment enrollment = new Enrollment(0, student, course, currentDate); // ID will be set by DAO
         enrollmentDAO.addEnrollment(enrollment);
     }
@@ -49,13 +48,12 @@ public class EnrollmentService {
     }
 
     public void updateEnrollment(Enrollment enrollment) throws SQLException {
-        // Typically, only enrollment date might be updatable, or other specific fields.
-        // For now, let's assume the whole object can be updated.
+        // Usually only the enrollment date might be updatable in real scenarios
         enrollmentDAO.updateEnrollment(enrollment);
     }
 
     public void deleteEnrollment(int id) throws SQLException {
-        // Business logic: e.g., remove associated grade before deleting enrollment
+        // I should handle the associated grade deletion first, but keeping it simple for now
         enrollmentDAO.deleteEnrollment(id);
     }
 }

@@ -5,7 +5,7 @@ public abstract class Person {
     private String firstName;
     private String lastName;
     private String email;
-    private String dateOfBirth; // Consider using LocalDate for better date handling
+    private String dateOfBirth; // I should probably use LocalDate here instead of String, but keeping it simple for now
 
     public Person() {}
 
@@ -60,6 +60,6 @@ public abstract class Person {
 
     @Override
     public String toString() {
-        return firstName + " " + lastName;
+        return firstName + " " + lastName; // I'm overriding this so it displays nicely in JComboBoxes
     }
 }
