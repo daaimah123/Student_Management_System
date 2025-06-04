@@ -5,6 +5,7 @@ public abstract class Person {
     private String firstName;
     private String lastName;
     private String email;
+    // TODO: Consider using LocalDate instead of String for better date handling
     private String dateOfBirth; // I should probably use LocalDate here instead of String, but keeping it simple for now
 
     public Person() {}

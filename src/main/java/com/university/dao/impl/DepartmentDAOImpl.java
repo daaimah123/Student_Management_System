@@ -22,6 +22,10 @@ public class DepartmentDAOImpl implements DepartmentDAO {
                     department.setId(generatedKeys.getInt(1)); // I'm setting the generated ID back on the object
                 }
             }
+        } catch (SQLException e) {
+            // TODO: Handle specific SQL exceptions differently (e.g., unique constraint violations)
+            // TODO: Add proper logging instead of just throwing
+            throw e;
         }
     }
 

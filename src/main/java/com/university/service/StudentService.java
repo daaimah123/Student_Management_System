@@ -15,6 +15,9 @@ public class StudentService {
     }
 
     public void addStudent(Student student) throws SQLException {
+        // TODO: Add email format validation
+        // TODO: Add date of birth validation (reasonable age range, valid date format)
+        // TODO: Check for duplicate email addresses
         // I'm doing basic validation here - should expand this later
         if (student.getFirstName() == null || student.getFirstName().trim().isEmpty() ||
             student.getLastName() == null || student.getLastName().trim().isEmpty()) {
@@ -32,6 +35,7 @@ public class StudentService {
     }
 
     public void updateStudent(Student student) throws SQLException {
+        // TODO: Add comprehensive validation (same as addStudent)
         if (student.getFirstName() == null || student.getFirstName().trim().isEmpty() ||
             student.getLastName() == null || student.getLastName().trim().isEmpty()) {
             throw new IllegalArgumentException("First name and last name cannot be empty.");
@@ -40,6 +44,8 @@ public class StudentService {
     }
 
     public void deleteStudent(int id) throws SQLException {
+        // TODO: Handle student enrollments before deletion (unenroll or prevent deletion)
+        // TODO: Handle student grades before deletion
         // I should consider business logic here: maybe unenroll from courses before deleting
         studentDAO.deleteStudent(id);
     }

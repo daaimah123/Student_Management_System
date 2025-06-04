@@ -25,6 +25,10 @@ public class StudentDAOImpl implements StudentDAO {
                     student.setId(generatedKeys.getInt(1)); // Setting the auto-generated ID back
                 }
             }
+        } catch (SQLException e) {
+            // TODO: Handle duplicate email constraint violations specifically
+            // TODO: Add proper logging framework
+            throw e;
         }
     }
 

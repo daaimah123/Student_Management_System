@@ -19,6 +19,9 @@ public class EnrollmentService {
     }
 
     public void addEnrollment(Student student, Course course) throws SQLException {
+        // TODO: Add enrollment capacity checks for courses
+        // TODO: Add prerequisite validation
+        // TODO: Add enrollment period validation (registration windows)
         if (student == null || course == null) {
             throw new IllegalArgumentException("Student and Course cannot be null for enrollment.");
         }
@@ -26,6 +29,7 @@ public class EnrollmentService {
             throw new IllegalArgumentException("Student is already enrolled in this course.");
         }
         
+        // TODO: Make date handling consistent throughout the application
         String currentDate = LocalDate.now().format(DateTimeFormatter.ISO_DATE); // I'm auto-setting today's date
         Enrollment enrollment = new Enrollment(0, student, course, currentDate); // ID will be set by DAO
         enrollmentDAO.addEnrollment(enrollment);
@@ -53,6 +57,8 @@ public class EnrollmentService {
     }
 
     public void deleteEnrollment(int id) throws SQLException {
+        // TODO: Handle associated grade deletion before removing enrollment
+        // TODO: Add business rules for enrollment deletion (e.g., deadline restrictions)
         // I should handle the associated grade deletion first, but keeping it simple for now
         enrollmentDAO.deleteEnrollment(id);
     }

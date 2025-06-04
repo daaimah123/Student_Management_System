@@ -20,6 +20,10 @@ public class StudentPanel extends JPanel {
         studentService = new StudentService();
         setLayout(new BorderLayout());
 
+        // TODO: Add search/filter functionality
+        // TODO: Add pagination for large datasets
+        // TODO: Add export functionality (CSV, PDF)
+        
         // I'm setting up the table with specific columns
         String[] columnNames = {"ID", "First Name", "Last Name", "Email", "Date of Birth"};
         tableModel = new DefaultTableModel(columnNames, 0) {
@@ -30,6 +34,10 @@ public class StudentPanel extends JPanel {
         };
         studentTable = new JTable(tableModel);
         studentTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // Only allow single row selection
+        
+        // TODO: Add sorting capabilities to table columns
+        // TODO: Add right-click context menu for table rows
+        
         JScrollPane scrollPane = new JScrollPane(studentTable);
         add(scrollPane, BorderLayout.CENTER);
 
@@ -40,6 +48,9 @@ public class StudentPanel extends JPanel {
         JButton deleteButton = new JButton("Delete Student");
         JButton refreshButton = new JButton("Refresh");
 
+        // TODO: Add keyboard shortcuts for buttons (Ctrl+N for Add, etc.)
+        // TODO: Add icons to buttons for better UX
+        
         buttonPanel.add(addButton);
         buttonPanel.add(editButton);
         buttonPanel.add(deleteButton);
@@ -111,6 +122,10 @@ public class StudentPanel extends JPanel {
         if (selectedRow >= 0) {
             int studentId = (int) tableModel.getValueAt(selectedRow, 0);
             String studentName = tableModel.getValueAt(selectedRow, 1) + " " + tableModel.getValueAt(selectedRow, 2);
+            
+            // TODO: Check for existing enrollments before allowing deletion
+            // TODO: Provide option to handle existing enrollments
+            
             int confirmation = JOptionPane.showConfirmDialog(this,
                     "Are you sure you want to delete student: " + studentName + " (ID: " + studentId + ")?",
                     "Confirm Deletion", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);

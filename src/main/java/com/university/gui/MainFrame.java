@@ -17,11 +17,17 @@ public class MainFrame extends JFrame {
         // I'm adding panels for each module - the order matters for user experience
         tabbedPane.addTab("Students", new StudentPanel());
         tabbedPane.addTab("Departments", new DepartmentPanel()); // Departments first since other things depend on them
-        tabbedPane.addTab("Employees", new EmployeePanel());
-        tabbedPane.addTab("Courses", new CoursePanel());
-        tabbedPane.addTab("Enrollments", new EnrollmentPanel());
-        tabbedPane.addTab("Grades", new GradePanel());
+        
+        // TODO: Implement missing GUI components:
+        // tabbedPane.addTab("Employees", new EmployeePanel());
+        // tabbedPane.addTab("Courses", new CoursePanel());
+        // tabbedPane.addTab("Enrollments", new EnrollmentPanel());
+        // tabbedPane.addTab("Grades", new GradePanel());
 
         add(tabbedPane, BorderLayout.CENTER);
+        
+        // TODO: Add menu bar with File, Edit, View, Help menus
+        // TODO: Add toolbar with common actions
+        // TODO: Add status bar for displaying application status
     }
 }

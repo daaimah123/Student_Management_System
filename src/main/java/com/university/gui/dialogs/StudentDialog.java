@@ -7,6 +7,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class StudentDialog extends JDialog {
     private JTextField firstNameField, lastNameField, emailField, dobField;
@@ -42,6 +45,10 @@ public class StudentDialog extends JDialog {
         dobField = new JTextField(20);
         formPanel.add(dobField);
 
+        // TODO: Add date picker component instead of text field
+        // TODO: Add input validation indicators (red border for invalid fields)
+        // TODO: Add field length limits and character restrictions
+
         // If we're editing, populate the fields with existing data
         if (currentStudent != null) {
             firstNameField.setText(currentStudent.getFirstName());
@@ -61,22 +68,38 @@ public class StudentDialog extends JDialog {
 
         saveButton.addActionListener(this::saveStudentAction);
         cancelButton.addActionListener(e -> dispose());
+        
+        // TODO: Add Enter key support for save action
+        // TODO: Add Escape key support for cancel action
     }
 
     private void saveStudentAction(ActionEvent e) {
         String firstName = firstNameField.getText().trim();
         String lastName = lastNameField.getText().trim();
         String email = emailField.getText().trim();
-        String dob = dobField.getText().trim(); // I should add proper date validation here later
+        String dob = dobField.getText().trim();
 
+        // TODO: Create utility class for input validation
         if (firstName.isEmpty() || lastName.isEmpty()) {
             JOptionPane.showMessageDialog(this, "First name and last name cannot be empty.", "Validation Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        // Basic email validation - I could make this more robust later
+        
+        // TODO: Improve email validation with more comprehensive regex
         if (!email.isEmpty() && !email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
             JOptionPane.showMessageDialog(this, "Invalid email format.", "Validation Error", JOptionPane.ERROR_MESSAGE);
             return;
+        }
+        
+        // TODO: Add date validation
+        if (!dob.isEmpty()) {
+            try {
+                LocalDate.parse(dob, DateTimeFormatter.ISO_DATE);
+                // TODO: Add reasonable age range validation (e.g., 16-100 years old)
+            } catch (DateTimeParseException ex) {
+                JOptionPane.showMessageDialog(this, "Invalid date format. Please use YYYY-MM-DD.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
         }
 
         Student studentToSave;
@@ -101,6 +124,7 @@ public class StudentDialog extends JDialog {
             saved = true;
             dispose(); // Close the dialog
         } catch (SQLException ex) {
+            // TODO: Handle specific SQL exceptions (e.g., duplicate email)
             JOptionPane.showMessageDialog(this, "Error saving student: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
             ex.printStackTrace();
         } catch (IllegalArgumentException ex) {

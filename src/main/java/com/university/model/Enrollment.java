@@ -4,6 +4,7 @@ public class Enrollment {
     private int id;
     private Student student;
     private Course course;
+    // TODO: Consider using LocalDate instead of String for consistency
     private String enrollmentDate; // I should consider LocalDate here too, but strings work for now
 
     private int studentId; // These IDs are for database operations

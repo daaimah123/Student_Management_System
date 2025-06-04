@@ -8,6 +8,8 @@ import java.sql.Statement;
 public class DatabaseUtil {
     private static final String DB_URL = "jdbc:sqlite:university.db";
 
+    // TODO: Consider implementing connection pooling for better performance
+    // TODO: Add configuration management for database URL and other settings
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(DB_URL);
     }
@@ -80,10 +82,17 @@ public class DatabaseUtil {
                     + ");";
             stmt.execute(createGradesTable);
 
+            // TODO: Add database indexes for better performance:
+            // CREATE INDEX idx_student_email ON students(email);
+            // CREATE INDEX idx_employee_department ON employees(departmentId);
+            // CREATE INDEX idx_enrollment_student ON enrollments(studentId);
+            // CREATE INDEX idx_enrollment_course ON enrollments(courseId);
+
             System.out.println("Database initialized successfully.");
 
         } catch (SQLException e) {
             System.err.println("Error initializing database: " + e.getMessage());
+            // TODO: Replace printStackTrace with proper logging framework
             e.printStackTrace();
         }
     }
