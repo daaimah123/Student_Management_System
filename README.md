@@ -41,26 +41,26 @@ The architecture follows a layered approach that I'm actually pretty proud of:
 ### Quick Start Guide
 
 1. **Clone this bad boy**
-   \`\`\`bash
-   git clone <wherever-you-put-this-repo>
+   ```bash
+   git clone git@github.com:daaimah123/Student_Management_System.git
    cd UniversityManagementSystem
-   \`\`\`
+   ```
 
 2. **Build it**
-   \`\`\`bash
+   ```bash
    mvn clean compile
-   \`\`\`
+   ```
 
 3. **Run it**
-   \`\`\`bash
+   ```bash
    mvn exec:java -Dexec.mainClass="com.university.main.UniversityManagementApp"
-   \`\`\`
+   ```
 
 4. **Or create a runnable JAR**
-   \`\`\`bash
+   ```bash
    mvn clean package
    java -jar target/UniversityManagementSystem-1.0-SNAPSHOT.jar
-   \`\`\`
+   ```
 
 ## Current Status & TODOs 📝
 
