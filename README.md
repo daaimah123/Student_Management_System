@@ -134,7 +134,7 @@ Found a bug? Want to add a feature? Have a better way to do something?
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
 
-Just remember to check the TODOs in the code - there might already be a plan for what you're thinking of!
+Just remember to check the TODOs in the code (or [existing issues](https://github.com/daaimah123/Student_Management_System/issues)) - there might already be a plan for what you're thinking of!
 
 ## License 📄
 This project is licensed under the MIT License - see the LICENSE file for details.
