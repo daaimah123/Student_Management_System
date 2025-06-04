@@ -2,12 +2,10 @@
 
 ## Hey there! 👋
 
-Welcome to my University Management System! This little project started as a way to save my sanity after watching university staff struggle with spreadsheets and paper forms for the millionth time. I figured there had to be a better way!
+Welcome to my University Management System! This project started as school project where I created two different files for a student management system and an employee management system respectively.
 
 ## What Does This Thing Do? 🤔
-
 This desktop app lets you manage all the university stuff without losing your mind:
-
 * 👨‍🎓 **Students** - Add those eager learners, track their info, and stop losing their paperwork
 * 👩‍🏫 **Employees** - Keep tabs on professors and staff (and maybe figure out who keeps eating everyone's lunch in the break room)
 * 📚 **Courses** - Organize what's being taught without the usual scheduling nightmare
@@ -18,7 +16,6 @@ This desktop app lets you manage all the university stuff without losing your mi
 All wrapped up in a (hopefully) intuitive Java Swing interface that won't make your eyes bleed!
 
 ## The Tech Stuff (For My Fellow Nerds) 🤓
-
 I built this with:
 * **Java** - Because I'm a glutton for semicolons
 * **Swing** - Old school UI that still gets the job done
@@ -129,7 +126,6 @@ The SQLite database gets created automatically with these tables:
 Foreign keys are properly set up to maintain data integrity, and I've got cascading deletes where it makes sense.
 
 ## Contributing 🤝
-
 Found a bug? Want to add a feature? Have a better way to do something? 
 
 1. Fork it
@@ -141,15 +137,11 @@ Found a bug? Want to add a feature? Have a better way to do something?
 Just remember to check the TODOs in the code - there might already be a plan for what you're thinking of!
 
 ## License 📄
-
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 ## Acknowledgments 🙏
-
 - Coffee ☕ - For making this possible
 - Stack Overflow - For answering questions I didn't know I had
 - My patience - For not giving up when Swing decided to be... Swing
 
----
-
-*Built with ❤️ and a healthy dose of frustration with existing university management systems*
+*Built with ❤️ and a healthy dose of frustration.*
