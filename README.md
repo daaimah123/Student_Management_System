@@ -4,6 +4,8 @@
 
 Welcome to my University Management System! This project started as school project where I created two different files for a student management system and an employee management system respectively.
 
+![university_management_system](https://github.com/user-attachments/assets/cfb3db13-adb6-4bd9-8299-721602dd0b5c)
+
 ## What Does This Thing Do? 🤔
 This desktop app lets you manage all the university stuff without losing your mind:
 * 👨‍🎓 **Students** - Add those eager learners, track their info, and stop losing their paperwork
