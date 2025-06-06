@@ -1,5 +1,5 @@
 # 👩🏽‍💻 Employee Management System 👩🏽‍💻
-A comprehensive Java program demonstrating the usage of Function interface and Streams for efficient data processing and manipulation of employee datasets read from an external CSV file.
+A comprehensive Java program demonstrating the usage of Function interface and Streams for efficient data processing and manipulation of employee datasets read from an external CSV file. This branch was created for a course assignment.
 
 This program also showcases advanced Java 8+ features including:
 - Reading data from an external CSV file.
