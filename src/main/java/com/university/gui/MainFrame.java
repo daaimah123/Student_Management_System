@@ -17,6 +17,7 @@ public class MainFrame extends JFrame {
         // I'm adding panels for each module - the order matters for user experience
         tabbedPane.addTab("Students", new StudentPanel());
         tabbedPane.addTab("Departments", new DepartmentPanel()); // Departments first since other things depend on them
+        tabbedPane.addTab("Courses", new CoursePanel());
         
         // TODO: Implement missing GUI components:
         // tabbedPane.addTab("Employees", new EmployeePanel());
